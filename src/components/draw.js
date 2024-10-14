@@ -276,10 +276,16 @@ export function drawXAxis (categories, opts, config, context) {
     let validWidth = opts.width - 2 * config.padding - config.yAxisWidth - config.yAxisTitleWidth;
     let maxXAxisListLength = Math.min(categories.length, Math.ceil(validWidth / config.fontSize / 1.5));
     //let ratio = Math.ceil(categories.length / maxXAxisListLength);
+    //opts.xAxis.num 是自己新增的参数
     let ratio = opts.xAxis.num!=null ? Math.ceil(categories.length / opts.xAxis.num) : Math.ceil(categories.length / maxXAxisListLength);
-
+    //第一个和最后一个必须展示
     categories = categories.map((item, index) => {
-        return index % ratio !== 0 ? '' : item;
+		if(index=== categories.length-1){
+			return item;
+		}else{
+			return index % ratio !== 0 ? '' : item;
+		}
+        
     });
 
     if (config._xAxisTextAngle_ === 0) {
